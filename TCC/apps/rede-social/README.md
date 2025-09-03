@@ -1,0 +1,1 @@
+## Espaço para projetos futuros (blogs, fórum, etc.)
