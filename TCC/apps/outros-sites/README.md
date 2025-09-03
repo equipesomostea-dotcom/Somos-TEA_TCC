@@ -1,1 +1,0 @@
-## Site principal (a rede social)

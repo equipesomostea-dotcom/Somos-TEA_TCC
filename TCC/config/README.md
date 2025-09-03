@@ -1,1 +1,0 @@
-## Arquivos de configuração (docker, eslint, prettier, etc.)
