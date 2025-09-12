@@ -1,0 +1,1 @@
+## Automação (scripts de build, deploy, CI/CD futuramente)
