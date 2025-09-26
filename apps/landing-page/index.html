@@ -1,23 +1,41 @@
 <!doctype html>
 <html lang="pt-BR">
+
 <head>
+  <!-- Metadados essenciais para o navegador e acessibilidade -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ALÉM DO AZUL</title>
-  <!-- Importa o CSS externo -->
+  
+  <!-- Vincula o arquivo CSS externo para a estilização da página -->
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+  <!-- Container principal que engloba toda a aplicação -->
   <div id="app">
+
+    <!-- Seção de cabeçalho da página, com marca e perfil do usuário -->
     <header>
       <div class="brand">
+        <!-- Elemento visual do logo, oculto para leitores de tela -->
         <span class="logo" aria-hidden="true"></span>
         <h1>ALÉM DO AZUL</h1>
       </div>
+
+      <!-- Botão e menu do perfil do usuário, com atributos de acessibilidade -->
       <div class="profile" id="profileBtn" tabindex="0" aria-haspopup="true" aria-expanded="false">
-        <img src="https://i.pravatar.cc/100" alt="Avatar do usuário">
-        <div class="name">Alisson Lima</div>
+        <!-- Imagem de avatar, será atualizada via JavaScript -->
+        <!-- O caminho 'default-avatar.png' deve ser ajustado para a imagem padrão -->
+        <img src="assets/images.png" alt="Avatar do usuário">
+        <!-- Nome do usuário, será atualizado via JavaScript -->
+        <div class="name">Usuário</div>
+        
+        <!-- Menu dropdown, controlado por JavaScript -->
         <div class="menu" id="profileMenu" role="menu">
+          <!-- Item para a página de cadastro -->
+          <a href="#" data-action="conta">Cadastrar</a>
+          <!-- Outros itens do menu -->
           <a href="#" data-action="edit">Editar perfil</a>
           <a href="#" data-action="settings">Configurações</a>
           <a href="#" data-action="logout">Sair</a>
@@ -25,9 +43,13 @@
       </div>
     </header>
 
+    <!-- Container principal com o layout de três colunas -->
     <div class="container">
+
+      <!-- Barra de navegação lateral para as seções principais -->
       <nav class="sidebar" aria-label="Menu principal">
         <ul>
+          <!-- Botões de navegação, com o destino definido em 'data-target' -->
           <li><button class="nav-btn active" data-target="home">🏠 Início</button></li>
           <li><button class="nav-btn" data-target="instrucoes">📘 Instruções</button></li>
           <li><button class="nav-btn" data-target="aulas">🎥 Aulas de Aconselhamento</button></li>
@@ -36,8 +58,12 @@
         </ul>
       </nav>
 
+      <!-- Conteúdo principal da página -->
       <main class="content" id="mainContent" tabindex="0">
-        <!-- Páginas -->
+
+        <!-- Seções de página, que são exibidas ou escondidas pelo JavaScript -->
+
+        <!-- Página Inicial -->
         <div id="home" class="page">
           <div class="breadcrumbs">Início</div>
           <div class="page-title">Bem-vindo à Plataforma</div>
@@ -54,26 +80,31 @@
           </div>
         </div>
 
+        <!-- Página de Cadastro (escondida por padrão) -->
         <div id="cadastro" class="page" style="display:none">
           <div class="breadcrumbs">Cadastro</div>
           <div class="page-title">Cadastrar criança / turma</div>
           <form id="formCadastro">
+            <!-- Campo de upload de imagem para o perfil -->
+            <label for="perfilImage">Foto de Perfil</label>
+            <input id="perfilImage" name="perfilImage" type="file" accept="image/*">
+            
             <label for="nome">Nome</label>
             <input id="nome" name="nome" type="text" placeholder="Nome completo" required>
-
+            
             <label for="email">E-mail do responsável</label>
             <input id="email" name="email" type="email" placeholder="responsavel@exemplo.com" required>
-
+            
             <label for="perfil">Você é:</label>
             <select id="perfil" name="perfil">
               <option value="pai">Pai / Mãe</option>
               <option value="professor">Professor</option>
               <option value="responsavel">Responsável</option>
             </select>
-
+            
             <label for="notas">Observações rápidas</label>
             <textarea id="notas" name="notas" placeholder="Breve histórico, preferências, etc."></textarea>
-
+            
             <div style="margin-top:10px;display:flex;gap:8px">
               <button class="btn" type="submit">Salvar</button>
               <button class="btn ghost" type="button" id="limparCadastro">Limpar</button>
@@ -81,6 +112,7 @@
           </form>
         </div>
 
+        <!-- Outras páginas da aplicação, escondidas por padrão -->
         <div id="instrucoes" class="page" style="display:none">
           <div class="breadcrumbs">Instruções</div>
           <div class="page-title">Dicas personalizadas</div>
@@ -128,16 +160,19 @@
             <p style="margin-top:6px"><strong>Suporte:</strong> suporte@plataforma.exemplo</p>
           </div>
         </div>
-
       </main>
 
+      <!-- Seção lateral para comentários rápidos -->
       <aside class="comments" aria-label="Comentários rápidos">
         <div style="font-weight:600">Comentários rápidos</div>
+        
+        <!-- Lista de comentários existentes -->
         <div class="comment-list" id="commentList">
           <div class="comment"><strong>Mariana</strong>: A aula 1 foi muito útil!<small> — 2h atrás</small></div>
           <div class="comment"><strong>João</strong>: Sugestões para rotinas?<small> — 1d</small></div>
         </div>
-
+        
+        <!-- Formulário para envio rápido de comentário -->
         <div>
           <label for="quickComment">Escreva um comentário</label>
           <textarea id="quickComment" placeholder="Compartilhe algo rápido..."></textarea>
@@ -148,12 +183,13 @@
       </aside>
     </div>
 
+    <!-- Rodapé da página -->
     <footer>
       <div>© 2025 ALÉM DO AZUL — Contato: suporte@plataforma.exemplo</div>
     </footer>
   </div>
 
-  <!-- Importa o JS externo -->
+  <!-- Vincula o arquivo JavaScript externo para interatividade -->
   <script src="script.js"></script>
 </body>
 </html>
