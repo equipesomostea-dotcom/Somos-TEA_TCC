@@ -196,6 +196,16 @@ aside.comments {
   font-size: 14px;
 }
 
+textarea {
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+
 /* Detalhes do comentário (autor, horário) */
 .comment small {
   display: block;
