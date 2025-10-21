@@ -37,6 +37,8 @@ let db;
     CREATE TABLE IF NOT EXISTS comentarios (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       nome TEXT NOT NULL,
+      email TEXT,
+      perfilImage TEXT,
       texto TEXT NOT NULL,
       data TEXT NOT NULL
     )
@@ -45,25 +47,47 @@ let db;
   console.log("✅ Banco de dados pronto!");
 })();
 
-// =====================
+// ========================
 // Rotas de usuários
-// =====================
+// ========================
 
 // Cadastrar usuário
 app.post("/api/usuarios", async (req, res) => {
-  const { nome, email, perfil, notas, perfilImage } = req.body;
-  if (!nome || !email) return res.status(400).json({ error: "Nome e email são obrigatórios" });
+  const data = req.body;
 
-  const data = new Date().toISOString();
+  if (!data.nome || !data.email) {
+    return res.status(400).json({ error: "Nome e email são obrigatórios" });
+  }
+
+  const now = new Date().toISOString();
+
   try {
     await db.run(
-      "INSERT INTO usuarios (nome, email, perfil, notas, perfilImage, data) VALUES (?, ?, ?, ?, ?, ?)",
-      [nome, email, perfil, notas, perfilImage, data]
+      `INSERT INTO usuarios (nome, email, perfil, notas, perfilImage, data) 
+       VALUES (?, ?, ?, ?, ?, ?)
+       ON CONFLICT(email) DO UPDATE SET 
+         nome=excluded.nome,
+         perfil=excluded.perfil,
+         notas=excluded.notas,
+         perfilImage=excluded.perfilImage,
+         data=excluded.data`,
+      [
+        data.nome,
+        data.email,
+        data.perfil || null,
+        data.notas || null,
+        data.perfilImage || null,
+        now,
+      ]
     );
-    res.json({ success: true });
+
+    res.json({
+      success: true,
+      message: "Usuário cadastrado ou atualizado com sucesso!",
+    });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Erro ao salvar usuário. Email pode já estar cadastrado." });
+    res.status(500).json({ error: "Erro ao salvar usuário" });
   }
 });
 
@@ -71,7 +95,9 @@ app.post("/api/usuarios", async (req, res) => {
 app.get("/api/usuarios/:email", async (req, res) => {
   const email = req.params.email;
   try {
-    const user = await db.get("SELECT * FROM usuarios WHERE email = ?", [email]);
+    const user = await db.get("SELECT * FROM usuarios WHERE email = ?", [
+      email,
+    ]);
     if (!user) return res.status(404).json({ error: "Usuário não encontrado" });
     res.json(user);
   } catch (err) {
@@ -80,9 +106,9 @@ app.get("/api/usuarios/:email", async (req, res) => {
   }
 });
 
-// =====================
+// ========================
 // Rotas de comentários
-// =====================
+// ========================
 
 // Buscar todos os comentários
 app.get("/api/comentarios", async (req, res) => {
@@ -95,24 +121,39 @@ app.get("/api/comentarios", async (req, res) => {
   }
 });
 
-// Inserir comentário
+// Inserir comentário (com email e perfilImage)
 app.post("/api/comentarios", async (req, res) => {
-  const { nome, texto } = req.body;
-  if (!nome || !texto) return res.status(400).json({ error: "Nome e texto são obrigatórios" });
+  const { nome, texto, email } = req.body;
+  if (!nome || !texto)
+    return res.status(400).json({ error: "Nome e texto são obrigatórios" });
+
+  let perfilImage = null;
+  if (email) {
+    try {
+      const user = await db.get(
+        "SELECT perfilImage FROM usuarios WHERE email = ?",
+        [email]
+      );
+      perfilImage = user?.perfilImage || null;
+    } catch (err) {
+      console.error("Erro ao buscar imagem do usuário:", err);
+    }
+  }
 
   const data = new Date().toISOString();
   try {
-    await db.run("INSERT INTO comentarios (nome, texto, data) VALUES (?, ?, ?)", [nome, texto, data]);
-    res.json({ success: true, nome, texto, data });
+    await db.run(
+      "INSERT INTO comentarios (nome, texto, email, perfilImage, data) VALUES (?, ?, ?, ?, ?)",
+      [nome, texto, email, perfilImage, data]
+    );
+    res.json({ success: true, nome, texto, email, perfilImage, data });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Erro ao salvar comentário" });
   }
 });
 
-// =====================
 // Inicialização do servidor
-// =====================
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`✅ Servidor rodando em http://localhost:${PORT}`);

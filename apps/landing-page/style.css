@@ -9,26 +9,29 @@
   padding: 0;
 }
 
-/* Garante que o corpo da página e o container principal ocupem a altura total */
+/* Garante altura total da página */
 html,
 body,
 #app {
   height: 100%;
 }
 
-/* Define a fonte, cor do texto e cor de fundo padrão para toda a aplicação */
+/* Fonte, cores e fundo padrão */
 body {
-  font-family: Inter, system-ui, Arial;
+  font-family: Inter, system-ui, Arial, sans-serif;
   color: #222;
   background: #f5f7fb;
+  transition: background 0.3s, color 0.3s;
 }
 
 /* ======================== */
-/* 2. Componente: Header */
+/* 2. Header */
 /* ======================== */
 
-/* Estilos para o cabeçalho fixo */
 header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   height: 64px;
   background: #0f172a;
   color: white;
@@ -38,14 +41,13 @@ header {
   padding: 0 20px;
 }
 
-/* Container da marca (logo + nome) */
+/* Marca (logo + nome) */
 .brand {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-/* Estilização do logo */
 .brand .logo {
   width: 36px;
   height: 36px;
@@ -53,7 +55,7 @@ header {
   background: linear-gradient(135deg, #6ee7b7, #3b82f6);
 }
 
-/* Container do perfil do usuário */
+/* Perfil do usuário */
 .profile {
   display: flex;
   align-items: center;
@@ -62,15 +64,15 @@ header {
   position: relative;
 }
 
-/* Imagem de avatar do perfil */
+/* Avatar */
 .profile img {
   width: 36px;
   height: 36px;
   border-radius: 30%;
-  object-fit: cover; /* Garante que a imagem preencha o espaço sem distorção */
+  object-fit: cover;
 }
 
-/* Menu dropdown, escondido por padrão */
+/* Menu dropdown */
 .profile .menu {
   position: absolute;
   right: 0;
@@ -83,15 +85,15 @@ header {
   display: none;
 }
 
-/* Links dentro do menu */
+/* Itens do menu */
 .profile .menu a {
   display: block;
   padding: 10px;
   text-decoration: none;
   color: inherit;
+  transition: background 0.2s;
 }
 
-/* Efeito de hover nos links do menu */
 .profile .menu a:hover {
   background: #f2f6ff;
 }
@@ -100,7 +102,6 @@ header {
 /* 3. Layout Principal */
 /* ======================== */
 
-/* Container principal do layout em grid */
 .container {
   display: grid;
   grid-template-columns: 260px 1fr 320px;
@@ -109,7 +110,7 @@ header {
   min-height: calc(100vh - 64px - 48px);
 }
 
-/* Barra de navegação lateral (sidebar) */
+/* Sidebar */
 nav.sidebar {
   background: white;
   border-radius: 12px;
@@ -117,7 +118,6 @@ nav.sidebar {
   box-shadow: 0 6px 20px rgba(2, 6, 23, 0.06);
 }
 
-/* Botões da barra lateral */
 nav.sidebar button {
   width: 100%;
   padding: 10px;
@@ -126,24 +126,26 @@ nav.sidebar button {
   background: transparent;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.2s; /* Adiciona uma transição suave */
+  transition: background 0.2s, color 0.2s;
 }
 
-/* Estilo para o botão ativo na barra lateral */
+/* Botão ativo */
 nav.sidebar button.active {
-  background: #eef2ff;
-  color: #111;
+  background: #e0e7ff;
+  color: #111827;
+  font-weight: 500;
 }
 
-/* Conteúdo principal (main) */
+/* Conteúdo principal */
 main.content {
   background: white;
   border-radius: 12px;
   padding: 18px;
   box-shadow: 0 6px 20px rgba(2, 6, 23, 0.06);
+  animation: fadeIn 0.3s ease;
 }
 
-/* "Breadcrumbs" (migalhas de pão) */
+/* Breadcrumbs */
 .breadcrumbs {
   font-size: 13px;
   color: #69707a;
@@ -156,19 +158,19 @@ main.content {
   margin-bottom: 12px;
 }
 
-/* Cards de conteúdo */
+/* Card */
 .card {
   background: #fafbff;
   border-radius: 10px;
   padding: 14px;
   margin-bottom: 12px;
+  animation: fadeIn 0.3s ease;
 }
 
 /* ======================== */
-/* 4. Componente: Comentários */
+/* 4. Comentários */
 /* ======================== */
 
-/* Seção lateral de comentários */
 aside.comments {
   background: white;
   border-radius: 12px;
@@ -179,100 +181,97 @@ aside.comments {
   gap: 12px;
 }
 
-/* Lista de comentários com rolagem */
+/* Lista de comentários */
 .comment-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
   max-height: 60vh;
   overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #000000 #f3f4f6;
+}
+
+/* Scrollbar personalizada */
+.comment-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.comment-list::-webkit-scrollbar-thumb {
+  background: #9ca3af;
+  border-radius: 10px;
 }
 
 /* Item de comentário */
 .comment {
   padding: 8px;
   border-radius: 8px;
-  background: #f3f4f6;
+  background: #f3f4f6d0;
   font-size: 14px;
+  animation: fadeIn 0.3s ease;
 }
 
-textarea {
-  width: 100%;
-  height: 80px;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  resize: none;
-}
-
-/* Detalhes do comentário (autor, horário) */
 .comment small {
   display: block;
-  color: #555;
+  color: #ffffff;
   margin-top: 6px;
 }
 
-/* ======================== */
 /* 5. Formulários e Botões */
-/* ======================== */
 
-/* Rótulos dos campos de formulário */
 label {
   display: block;
   font-size: 13px;
   margin-bottom: 6px;
-  color: #333;
+  color: rgb(255, 255, 255);
 }
 
-/* Campos de entrada, área de texto e seleção */
 input,
 textarea,
 select {
   width: 100%;
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid #dce4f2;
-  background: white;
+  border: 1px solid #000000;
+  background: rgba(255, 255, 255, 0.867);
 }
 
-/* Área de texto */
 textarea {
   min-height: 90px;
+  resize: none;
 }
 
-/* Botão padrão (preenchido) */
+/* Botão padrão */
+
 .btn {
   padding: 10px 12px;
   border-radius: 10px;
   border: none;
   background: #0f172a;
-  color: white;
+  color: rgb(116, 106, 106); /* <- ponto e vírgula adicionado */
   cursor: pointer;
-  transition: background 0.2s, color 0.2s; /* Adiciona transições */
+  transition: background 0.2s, color 0.2s;
 }
+
 
 .btn:hover {
-  background: #2a354b; /* Efeito de hover */
+  background: #2a354b;
 }
 
-/* Botão fantasma (transparente) */
+/* Botão fantasma */
 .btn.ghost {
   background: transparent;
   color: #0f172a;
-  border: 1px solid #e6e9f3;
+  border: 1px solid #ffffff7f;
 }
 
 .btn.ghost:hover {
-  background: #eef2ff; /* Efeito de hover */
+  background: #003cff82;
   color: #111;
 }
 
-/* ======================== */
 /* 6. Footer */
-/* ======================== */
 
-/* Estilos para o rodapé da página */
 footer {
   height: 48px;
   display: flex;
@@ -282,35 +281,117 @@ footer {
   font-size: 13px;
 }
 
-/* ======================== */
-/* 7. Responsividade */
-/* ======================== */
+/* 7. Acessibilidade */
 
-/* Ajusta o layout em telas de até 1000px, escondendo a barra de comentários */
+:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 3px;
+}
+
+/* 8. Animações */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 9. Responsividade */
+
 @media (max-width: 1000px) {
   .container {
     grid-template-columns: 220px 1fr;
   }
-
   aside.comments {
     display: none;
   }
 }
 
-/* Ajusta o layout em telas de até 720px, transformando em uma única coluna */
 @media (max-width: 720px) {
   .container {
     grid-template-columns: 1fr;
     gap: 12px;
     padding: 12px;
   }
-
-  /* Reorganiza a ordem dos elementos */
   nav.sidebar {
     order: 2;
   }
-
   main.content {
     order: 1;
   }
+}
+
+/* 10. Dark Mode Automático */
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #0f172a;
+    color: #f9fafb;
+  }
+
+  header {
+    background: #1e293b;
+  }
+
+  nav.sidebar,
+  main.content,
+  aside.comments {
+    background: #1e293b;
+    box-shadow: none;
+  }
+
+  .card,
+  .comment {
+    background: #334155;
+  }
+
+  .btn {
+    background: #3b82f6;
+  }
+
+  .btn.ghost {
+    border-color: #334155;
+    color: #e2e8f0;
+  }
+
+  .btn.ghost:hover {
+    background: #475569;
+  }
+
+  .profile .menu {
+    background: #1e293b;
+    color: #f1f5f9;
+  }
+
+  .profile .menu a:hover {
+    background: #334155;
+  }
+}
+
+.comment {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 6px 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-end; /* imagem + nome no canto superior direito */
+}
+
+.comment-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
 }

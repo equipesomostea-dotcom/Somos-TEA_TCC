@@ -61,6 +61,7 @@ function setupProfileMenu() {
     }
   });
 
+  // Item do menu que abre o cadastro
   profileMenu.addEventListener("click", (e) => {
     if (e.target.dataset.action === "conta") {
       showCadastroForm();
@@ -129,7 +130,9 @@ async function loadUserData() {
   if (!email) return;
 
   try {
-    const res = await fetch(`http://localhost:3000/api/usuarios/${email}`);
+    const res = await fetch(
+      `http://localhost:3000/api/usuarios/${encodeURIComponent(email)}`
+    );
     if (!res.ok) return;
 
     const user = await res.json();
@@ -139,7 +142,7 @@ async function loadUserData() {
     formCadastro.email.value = user.email || "";
     formCadastro.perfil.value = user.perfil || "pai";
     formCadastro.notas.value = user.notas || "";
-    // Se quiser mostrar a imagem no formulário, pode criar um <img> dinâmico
+    // Para mostrar a imagem, crie um <img> dinâmico se quiser
   } catch (err) {
     console.error("Erro ao carregar usuário:", err);
   }
@@ -172,10 +175,25 @@ async function setupQuickComments() {
       const res = await fetch("http://localhost:3000/api/comentarios");
       const comments = await res.json();
       commentList.innerHTML = "";
+
       comments.forEach((c) => {
         const div = document.createElement("div");
         div.className = "comment";
-        div.innerHTML = `<strong>${escapeHtml(c.nome)}</strong>: ${escapeHtml(c.texto)} <small>— ${tempoRelativo(c.data)}</small>`;
+
+        div.innerHTML = `
+          <div class="comment-header">
+            ${
+              c.perfilImage
+                ? `<img src="${c.perfilImage}" alt="Avatar" class="comment-img">`
+                : ""
+            }
+            <strong>${escapeHtml(c.nome)}</strong>
+          </div>
+          <div class="comment-body">
+            ${escapeHtml(c.texto)}
+          </div>
+          <small>— ${tempoRelativo(c.data)}</small>
+        `;
         commentList.appendChild(div);
       });
     } catch (err) {
@@ -191,13 +209,17 @@ async function setupQuickComments() {
 
     const email = getEmailFromLocalStorage();
     let userName = "Você";
+    let perfilImage = null;
 
     if (email) {
       try {
-        const res = await fetch(`http://localhost:3000/api/usuarios/${email}`);
+        const res = await fetch(
+          `http://localhost:3000/api/usuarios/${encodeURIComponent(email)}`
+        );
         if (res.ok) {
           const user = await res.json();
           userName = user.nome.split(" ")[0] || "Você";
+          perfilImage = user.perfilImage || null;
         }
       } catch (err) {
         console.error(err);
@@ -208,7 +230,12 @@ async function setupQuickComments() {
       const response = await fetch("http://localhost:3000/api/comentarios", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome: userName, texto: text }),
+        body: JSON.stringify({
+          nome: userName,
+          texto: text,
+          email,
+          perfilImage,
+        }),
       });
 
       if (!response.ok) throw new Error("Erro ao enviar comentário");
@@ -247,4 +274,25 @@ document.addEventListener("DOMContentLoaded", () => {
   setupCadastroForm();
   setupQuickComments();
   loadUserData(); // Carrega dados do usuário salvo
+});
+
+comments.forEach((c) => {
+  const div = document.createElement("div");
+  div.className = "comment";
+
+  div.innerHTML = `
+    <div class="comment-header">
+      ${
+        c.perfilImage
+          ? `<img src="${c.perfilImage}" alt="Avatar" class="comment-img">`
+          : ""
+      }
+      <strong>${escapeHtml(c.nome)}</strong>
+    </div>
+    <div class="comment-body">
+      ${escapeHtml(c.texto)}
+    </div>
+    <small>— ${tempoRelativo(c.data)}</small>
+  `;
+  commentList.appendChild(div);
 });
