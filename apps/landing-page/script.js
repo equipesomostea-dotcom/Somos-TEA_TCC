@@ -1,6 +1,4 @@
-/* ======================== */
-/* 1. Funções utilitárias */
-/* ======================== */
+/* INÍCIO */
 function escapeHtml(text) {
   const div = document.createElement("div");
   div.textContent = text;
@@ -15,9 +13,7 @@ function getEmailFromLocalStorage() {
   return localStorage.getItem("usuarioEmail");
 }
 
-/* ======================== */
-/* 2. Navegação entre abas */
-/* ======================== */
+/* NAVEGAÇÃO ENTRE ABAS */
 function setupTabNavigation() {
   const navButtons = document.querySelectorAll(".nav-btn");
   const pages = document.querySelectorAll(".page");
@@ -38,9 +34,7 @@ function setupTabNavigation() {
   });
 }
 
-/* ======================== */
-/* 3. Perfil / Menu */
-/* ======================== */
+/* MENU DE PERFIL */
 function setupProfileMenu() {
   const profileBtn = document.getElementById("profileBtn");
   const profileMenu = document.getElementById("profileMenu");
@@ -61,7 +55,6 @@ function setupProfileMenu() {
     }
   });
 
-  // Item do menu que abre o cadastro
   profileMenu.addEventListener("click", (e) => {
     if (e.target.dataset.action === "conta") {
       showCadastroForm();
@@ -71,9 +64,7 @@ function setupProfileMenu() {
   });
 }
 
-/* ======================== */
-/* 4. Cadastro */
-/* ======================== */
+/* FORMULÁRIO DE CADASTRO */
 function setupCadastroForm() {
   const formCadastro = document.getElementById("formCadastro");
   const limparBtn = document.getElementById("limparCadastro");
@@ -122,9 +113,7 @@ function setupCadastroForm() {
   });
 }
 
-/* ======================== */
-/* 5. Carregar cadastro salvo */
-/* ======================== */
+/* CARREGAR CADASTRO SALVO */
 async function loadUserData() {
   const email = getEmailFromLocalStorage();
   if (!email) return;
@@ -142,15 +131,12 @@ async function loadUserData() {
     formCadastro.email.value = user.email || "";
     formCadastro.perfil.value = user.perfil || "pai";
     formCadastro.notas.value = user.notas || "";
-    // Para mostrar a imagem, crie um <img> dinâmico se quiser
   } catch (err) {
     console.error("Erro ao carregar usuário:", err);
   }
 }
 
-/* ======================== */
-/* 6. Comentários rápidos */
-/* ======================== */
+/* COMENTÁRIOS RÁPIDOS */
 async function setupQuickComments() {
   const sendCommentBtn = document.getElementById("sendComment");
   const quickCommentInput = document.getElementById("quickComment");
@@ -182,16 +168,10 @@ async function setupQuickComments() {
 
         div.innerHTML = `
           <div class="comment-header">
-            ${
-              c.perfilImage
-                ? `<img src="${c.perfilImage}" alt="Avatar" class="comment-img">`
-                : ""
-            }
+            ${c.perfilImage ? `<img src="${c.perfilImage}" class="comment-img">` : ""}
             <strong>${escapeHtml(c.nome)}</strong>
           </div>
-          <div class="comment-body">
-            ${escapeHtml(c.texto)}
-          </div>
+          <div class="comment-body">${escapeHtml(c.texto)}</div>
           <small>— ${tempoRelativo(c.data)}</small>
         `;
         commentList.appendChild(div);
@@ -230,12 +210,7 @@ async function setupQuickComments() {
       const response = await fetch("http://localhost:3000/api/comentarios", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          nome: userName,
-          texto: text,
-          email,
-          perfilImage,
-        }),
+        body: JSON.stringify({ nome: userName, texto: text, email, perfilImage }),
       });
 
       if (!response.ok) throw new Error("Erro ao enviar comentário");
@@ -249,9 +224,7 @@ async function setupQuickComments() {
   });
 }
 
-/* ======================== */
-/* 7. Mostrar cadastro */
-/* ======================== */
+/* MOSTRAR FORMULÁRIO */
 function showCadastroForm() {
   const pages = document.querySelectorAll(".page");
   const cadastroPage = document.getElementById("cadastro");
@@ -265,34 +238,11 @@ function showCadastroForm() {
   document.querySelector(".nav-btn.active")?.classList.remove("active");
 }
 
-/* ======================== */
-/* 8. Inicialização */
-/* ======================== */
+/* INICIALIZAÇÃO */
 document.addEventListener("DOMContentLoaded", () => {
   setupTabNavigation();
   setupProfileMenu();
   setupCadastroForm();
   setupQuickComments();
-  loadUserData(); // Carrega dados do usuário salvo
-});
-
-comments.forEach((c) => {
-  const div = document.createElement("div");
-  div.className = "comment";
-
-  div.innerHTML = `
-    <div class="comment-header">
-      ${
-        c.perfilImage
-          ? `<img src="${c.perfilImage}" alt="Avatar" class="comment-img">`
-          : ""
-      }
-      <strong>${escapeHtml(c.nome)}</strong>
-    </div>
-    <div class="comment-body">
-      ${escapeHtml(c.texto)}
-    </div>
-    <small>— ${tempoRelativo(c.data)}</small>
-  `;
-  commentList.appendChild(div);
+  loadUserData();
 });
