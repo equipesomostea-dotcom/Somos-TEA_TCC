@@ -1,4 +1,3 @@
-// server.js
 import express from "express";
 import cors from "cors";
 import sqlite3 from "sqlite3";
@@ -47,9 +46,8 @@ let db;
   console.log("✅ Banco de dados pronto!");
 })();
 
-// ========================
+
 // Rotas de usuários
-// ========================
 
 // Cadastrar usuário
 app.post("/api/usuarios", async (req, res) => {
@@ -91,6 +89,7 @@ app.post("/api/usuarios", async (req, res) => {
   }
 });
 
+
 // Buscar usuário pelo email
 app.get("/api/usuarios/:email", async (req, res) => {
   const email = req.params.email;
@@ -106,9 +105,6 @@ app.get("/api/usuarios/:email", async (req, res) => {
   }
 });
 
-// ========================
-// Rotas de comentários
-// ========================
 
 // Buscar todos os comentários
 app.get("/api/comentarios", async (req, res) => {
@@ -120,6 +116,7 @@ app.get("/api/comentarios", async (req, res) => {
     res.status(500).json({ error: "Erro ao buscar comentários" });
   }
 });
+
 
 // Inserir comentário (com email e perfilImage)
 app.post("/api/comentarios", async (req, res) => {
@@ -152,6 +149,7 @@ app.post("/api/comentarios", async (req, res) => {
     res.status(500).json({ error: "Erro ao salvar comentário" });
   }
 });
+
 
 // Inicialização do servidor
 const PORT = 3000;
