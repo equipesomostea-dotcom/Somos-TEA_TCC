@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ALÉM DO AZUL</title>
 
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
   <!-- Vincula o arquivo CSS externo para a estilização da página -->
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -17,10 +19,10 @@
     <!-- Seção de cabeçalho da página, com marca e perfil do usuário -->
     <header>
       <div class="brand">
-        <!-- Elemento visual do logo, oculto para leitores de tela -->
-        <span class="logo" aria-hidden="true"></span>
+        <img src="assets/logo.png" alt="Logo" class="logo-img">
         <h1>ALÉM DO AZUL</h1>
       </div>
+
 
       <!-- Botão e menu do perfil do usuário, com atributos de acessibilidade -->
       <div class="profile" id="profileBtn" tabindex="0" aria-haspopup="true" aria-expanded="false"
@@ -162,26 +164,34 @@
 
           <div class="card" id="instrucoesConteudo">
             <p>
-              O <strong>Transtorno do Espectro Autista (TEA)</strong> é uma condição do neurodesenvolvimento que acompanha a pessoa ao longo da vida. Ele afeta principalmente duas áreas:
+              O <strong>Transtorno do Espectro Autista (TEA)</strong> é uma condição do neurodesenvolvimento que
+              acompanha a pessoa ao longo da vida. Ele afeta principalmente duas áreas:
             </p>
 
             <ol style="margin-top: 12px; margin-left: 18px; line-height:1.5;">
               <li><strong>Comunicação e interação social</strong></li>
-              <li><strong>Comportamentos repetitivos, interesses intensos ou formas diferentes de perceber o mundo</strong></li>
+              <li><strong>Comportamentos repetitivos, interesses intensos ou formas diferentes de perceber o
+                  mundo</strong></li>
             </ol>
 
             <p style="margin-top: 12px;">
-              O termo <em>“espectro”</em> é usado porque o autismo se manifesta de formas diferentes em cada pessoa. Há variações no nível de apoio necessário, nas habilidades e nas dificuldades. Cada pessoa autista possui um conjunto único de características.
+              O termo <em>“espectro”</em> é usado porque o autismo se manifesta de formas diferentes em cada pessoa. Há
+              variações no nível de apoio necessário, nas habilidades e nas dificuldades. Cada pessoa autista possui um
+              conjunto único de características.
             </p>
 
             <h4 style="margin-top: 12px;">Por que o TEA é mais discutido hoje?</h4>
             <p style="margin-top: 8px;">
-              Nos últimos anos, houve maior reconhecimento do autismo por causa de diagnósticos mais precisos, melhor capacitação de profissionais e maior busca por informação. Esse aumento nos números não significa que "mais pessoas surgiram", mas sim que o diagnóstico e o reconhecimento melhoraram.
+              Nos últimos anos, houve maior reconhecimento do autismo por causa de diagnósticos mais precisos, melhor
+              capacitação de profissionais e maior busca por informação. Esse aumento nos números não significa que
+              "mais pessoas surgiram", mas sim que o diagnóstico e o reconhecimento melhoraram.
             </p>
 
             <h4 style="margin-top: 12px;">O que causa o TEA?</h4>
             <p style="margin-top: 8px;">
-              O TEA tem origem neurobiológica e envolve principalmente fatores genéticos, possivelmente combinados com fatores ambientais não prejudiciais. Importante: o autismo não é causado por vacinas, telas, estilo de criação ou alimentação. Não é culpa de ninguém.
+              O TEA tem origem neurobiológica e envolve principalmente fatores genéticos, possivelmente combinados com
+              fatores ambientais não prejudiciais. Importante: o autismo não é causado por vacinas, telas, estilo de
+              criação ou alimentação. Não é culpa de ninguém.
             </p>
 
             <h4 style="margin-top: 12px;">Como o TEA costuma se manifestar?</h4>
@@ -198,7 +208,8 @@
             </ul>
 
             <p style="margin-top: 12px;">
-              Muitas pessoas autistas também apresentam habilidades marcantes, como atenção a detalhes, capacidade de foco em interesses específicos, pensamento lógico e criatividade.
+              Muitas pessoas autistas também apresentam habilidades marcantes, como atenção a detalhes, capacidade de
+              foco em interesses específicos, pensamento lógico e criatividade.
             </p>
 
             <h4 style="margin-top: 12px;">Por que entender o TEA é importante?</h4>
@@ -214,7 +225,9 @@
             </ul>
 
             <p style="margin-top: 12px;">
-              <strong>Nosso objetivo</strong> com este site é facilitar o acesso a informações confiáveis, claras e organizadas sobre o TEA, ajudando pais, cuidadores, estudantes e profissionais a compreender melhor o autismo e a promover uma convivência mais respeitosa e acolhedora.
+              <strong>Nosso objetivo</strong> com este site é facilitar o acesso a informações confiáveis, claras e
+              organizadas sobre o TEA, ajudando pais, cuidadores, estudantes e profissionais a compreender melhor o
+              autismo e a promover uma convivência mais respeitosa e acolhedora.
             </p>
           </div>
         </div>
@@ -226,20 +239,67 @@
             <h4>Aula 1 — Introdução</h4>
             <div style="margin-top: 8px">
               <div style="
-                    background: #000;
-                    height: 200px;
-                    border-radius: 8px;
-                    color: white;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                  ">
-                Player de vídeo (placeholder)
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* proporção 16:9 */
+      height: 0;
+      border-radius: 8px;
+      overflow: hidden;
+    ">
+                <iframe src="https://www.youtube.com/embed/8uTHFYAQtnA" title="YouTube video player" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen style="
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    "></iframe>
               </div>
-              <p style="margin-top: 8px">Texto explicativo.</p>
+
+              <p style="margin-top: 8px">Os vídeos do Canal Mentes em Pauta, são produzidos baseados na experiência da
+                Dra. Ana Beatriz Barbosa Silva, na observação prática de pacientes e em pesquisas científicas mais
+                recentes até o momento. Em caso de dúvidas procure seu médico. Todos os materiais aqui divulgados são de
+                propriedade da Dra. Ana Beatriz Barbosa Silva e não podem ser replicados sem autorização prévia em
+                outros canais do YouTube ou qualquer outra plataforma.</p>
             </div>
           </div>
+          <div class="card-grid">
+
+            <a class="card-link" href="https://www.tuasaude.com/sintomas-de-autismo/" target="_blank">
+              <div class="mini-card">
+                <img src="assets/img1.png" alt="Imagem 1">
+                <h4>Primeiros sinais do TEA</h4>
+                <p>Os sinais e sintomas de autismo, também conhecido como TEA, são muito variados e nem sempre são
+                  fáceis de serem percebidos.</p>
+              </div>
+            </a>
+
+            <a class="card-link" href="https://www.youtube.com/watch?v=Os9LURj5syI" target="_blank">
+              <div class="mini-card">
+                <img src="assets/img2.png" alt="Imagem 2">
+                <h4>Práticas inclusivas para crianças com TEA</h4>
+                <p>Este vídeo fornece estratégias para pais e professores, ajudando a criar um ambiente de aprendizado
+                  acolhedor e produtivo.</p>
+              </div>
+            </a>
+
+            <a class="card-link"
+              href="https://desenvolver.garcezranha.com.br/como-criar-um-ambiente-sensorial-para-criancas-autistas/"
+              target="_blank">
+              <div class="mini-card">
+                <img src="assets/img3.png" alt="Imagem 3">
+                <h4>Como criar um ambiente sensorial</h4>
+                <p>A criação de um ambiente sensorial amigável é fundamental para promover o bem-estar e o
+                  desenvolvimento das crianças com autismo.</p>
+              </div>
+            </a>
+
+          </div>
         </div>
+
+
 
         <div id="professores" class="page" style="display: none">
           <div class="breadcrumbs">Espaço para Professores</div>
@@ -323,7 +383,7 @@
 
     <!-- Rodapé da página -->
     <footer>
-      <div>© 2025 ALÉM DO AZUL — Contato: suporte@plataforma.exemplo</div>
+      <div>© 2025 ALÉM DO AZUL — Contato: suport.ada@gmail.com</div>
     </footer>
   </div>
 
